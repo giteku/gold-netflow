@@ -2,41 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Luxury Dark SaaS Network Monitoring Theme - by github.com/odaysec
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Luxury Dark Theme - Primary Colors */
+    --background: 0 0% 5.1%;  /* #0D0D0D - Deep black */
+    --foreground: 0 0% 91.8%; /* #EAEAEA - Soft white */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Cards & Panels - Premium Grey */
+    --card: 0 0% 11.8%; /* #1E1E1E */
+    --card-foreground: 0 0% 91.8%;
+    --card-secondary: 0 0% 17.3%; /* #2C2C2C */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 7.1%; /* #121212 */
+    --popover-foreground: 0 0% 91.8%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Gold Accent - Luxury Highlight */
+    --primary: 41 63% 48.6%; /* #CBA135 - Premium gold */
+    --primary-foreground: 0 0% 5.1%;
+    --primary-bright: 51 100% 50%; /* #FFD700 - Bright gold */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary Greys */
+    --secondary: 0 0% 17.3%; /* #2C2C2C */
+    --secondary-foreground: 0 0% 91.8%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 11.8%; /* #1E1E1E */
+    --muted-foreground: 0 0% 62.7%; /* #A0A0A0 - Secondary text */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Gold Accent Alternative */
+    --accent: 41 63% 48.6%; /* #CBA135 */
+    --accent-foreground: 0 0% 5.1%;
 
+    /* Status Colors */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 9%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders & Inputs */
+    --border: 0 0% 17.3%; /* #2C2C2C */
+    --input: 0 0% 11.8%; /* #1E1E1E */
+    --ring: 41 63% 48.6%; /* Gold ring */
 
-    --radius: 0.5rem;
+    /* Luxury Design Elements */
+    --gradient-gold: linear-gradient(135deg, hsl(41 63% 48.6%), hsl(51 100% 50%));
+    --gradient-dark: linear-gradient(135deg, hsl(0 0% 5.1%), hsl(0 0% 11.8%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 11.8%), hsl(0 0% 17.3%));
+    
+    /* Shadows for luxury depth */
+    --shadow-luxury: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
+    --shadow-gold: 0 0 20px hsl(41 63% 48.6% / 0.3);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.4);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
