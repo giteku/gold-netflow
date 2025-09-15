@@ -1,69 +1,37 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Shield, X } from "lucide-react";
+import { AlertTriangle, Shield, X, RefreshCw } from "lucide-react";
+import { Alert } from '@/lib/supabase';
 
-const alerts = [
-  {
-    id: 1,
-    type: "security",
-    severity: "high",
-    title: "Suspicious Connection Detected",
-    description: "chrome.exe connected to unknown IP 185.199.108.153",
-    timestamp: "2 minutes ago",
-    status: "active"
-  },
-  {
-    id: 2,
-    type: "bandwidth",
-    severity: "medium", 
-    title: "High Bandwidth Usage",
-    description: "node.exe consuming 45MB/s upload bandwidth",
-    timestamp: "5 minutes ago",
-    status: "active"
-  },
-  {
-    id: 3,
-    type: "security",
-    severity: "low",
-    title: "New Process Started",
-    description: "Unknown process 'miner.exe' detected and blocked",
-    timestamp: "12 minutes ago", 
-    status: "resolved"
-  }
-];
+interface AlertsListProps {
+  alerts?: Alert[];
+  loading?: boolean;
+  onRefresh?: () => void;
+}
 
-const getSeverityColor = (severity: string) => {
-  switch (severity) {
-    case "high": return "bg-destructive/10 text-destructive border-destructive/20";
-    case "medium": return "bg-warning/10 text-warning border-warning/20";
-    case "low": return "bg-primary/10 text-primary border-primary/20";
-    default: return "bg-muted/10 text-muted-foreground border-muted/20";
-  }
-};
-
-const getTypeIcon = (type: string) => {
-  switch (type) {
-    case "security": return Shield;
-    default: return AlertTriangle;
-  }
-};
-
-export function AlertsList() {
+export function AlertsList({ alerts = [], loading = false, onRefresh }: AlertsListProps) {
   return (
     <Card className="bg-gradient-card border-border shadow-card">
       <CardHeader>
         <CardTitle className="flex items-center justify-between text-lg font-semibold text-foreground">
           <span>Security Alerts</span>
-          <Badge variant="secondary" className="bg-destructive/10 text-destructive border-destructive/20">
-            {alerts.filter(a => a.status === "active").length} Active
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary" className="bg-destructive/10 text-destructive border-destructive/20">
+              {alerts.filter(a => a.status === "active").length} Active
+            </Badge>
+            {onRefresh && (
+              <Button variant="ghost" size="sm" onClick={onRefresh}>
+                <RefreshCw className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           {alerts.map((alert) => {
-            const Icon = getTypeIcon(alert.type);
+            const Icon = alert.type === "security" ? Shield : AlertTriangle;
             return (
               <div 
                 key={alert.id}
@@ -86,10 +54,16 @@ export function AlertsList() {
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Badge className={getSeverityColor(alert.severity)}>
+                      <Badge className={
+                        alert.severity === "high" ? "bg-destructive/10 text-destructive border-destructive/20" :
+                        alert.severity === "medium" ? "bg-warning/10 text-warning border-warning/20" :
+                        "bg-primary/10 text-primary border-primary/20"
+                      }>
                         {alert.severity.toUpperCase()}
                       </Badge>
-                      <span className="text-xs text-muted-foreground">{alert.timestamp}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(alert.created_at).toLocaleTimeString()}
+                      </span>
                     </div>
                     
                     {alert.status === "active" && (
