@@ -25,20 +25,20 @@ export function LoginForm() {
     setError('');
 
     try {
-      const { error } = isSignUp 
+      const result = isSignUp 
         ? await signUp(email, password, { 
             full_name: email.split('@')[0],
             role: 'admin' 
           })
         : await signIn(email, password);
 
-      if (error) {
-        setError(error.message);
+      if (result.error) {
+        setError(result.error.message);
       } else {
         toast({
           title: isSignUp ? "Account created!" : "Welcome back!",
           description: isSignUp 
-            ? "Please check your email to verify your account." 
+            ? "Admin account setup completed. You can now monitor your network." 
             : "Successfully signed in to your dashboard.",
         });
       }
@@ -144,14 +144,16 @@ export function LoginForm() {
           </CardContent>
         </Card>
 
-        {/* Demo Info */}
+        {/* Demo Info - REMOVED */}
+        
+        {/* Admin Info */}
         <Card className="bg-gradient-card border-border shadow-card">
           <CardContent className="p-4">
             <div className="text-center space-y-2">
-              <h3 className="text-sm font-medium text-foreground">Demo Credentials</h3>
+              <h3 className="text-sm font-medium text-foreground">Setup Admin Account</h3>
               <div className="text-xs text-muted-foreground space-y-1">
-                <p>Email: demo@odaysec.com</p>
-                <p>Password: demo123456</p>
+                <p>Create your admin account to start monitoring</p>
+                <p>Full access to all network monitoring features</p>
               </div>
             </div>
           </CardContent>
